@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  recoll:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - "data-path:/data/:ro"
+      - "recolldata:/home/.recoll/"
+volumes:
+  recolldata:
+  data-path:
+     name: ${PATH_TO_FOLDER_TO_BE_INDEXED}
+     external: false

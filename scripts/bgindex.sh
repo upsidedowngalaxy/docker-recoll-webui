@@ -1,5 +1,5 @@
 #!/bin/bash
-while :
+while true;
 do
 	/usr/bin/recollindex
 	startTime=$(date +%s)
@@ -8,3 +8,5 @@ do
 	#/bin/sleep $timeToWait
 	/bin/sleep 30m
 done
+
+

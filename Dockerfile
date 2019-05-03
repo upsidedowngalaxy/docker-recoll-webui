@@ -1,47 +1,39 @@
-FROM debian:jessie
-MAINTAINER Victor <victor@me.com>
+FROM ubuntu:18.04
+MAINTAINER gorgia <gorgia@fastwebnet.it>
 
 RUN adduser --disabled-password docker
 
-VOLUME /home/docker/data
+VOLUME /data
+
 EXPOSE 8080
 
+
 #this should be picked up by recollindex
-ENV RECOLL_CONFDIR /home/docker/data/.recoll 
-
-RUN echo deb http://www.lesbonscomptes.com/recoll/debian/ unstable main > \
-	/etc/apt/sources.list.d/recoll.list
-
-RUN echo deb-src http://www.lesbonscomptes.com/recoll/debian/ unstable main >> \
-	/etc/apt/sources.list.d/recoll.list
-
-RUN apt-get update && \
-	apt-get install -y --force-yes locales
-# Set the locale
-#http://jaredmarkell.com/docker-and-locales/
-#https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-ubuntu-docker-container
-RUN sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen de_DE.UTF-8  
-ENV LANG de_DE.UTF-8  
-ENV LANGUAGE de_DE:de
-ENV LC_ALL de_DE.UTF-8 
+ENV RECOLL_CONFDIR /home/.recoll
+ENV DEBIAN_FRONTEND noninteractive
 
 
 RUN apt-get update && \
-    apt-get install -y --force-yes recoll python-recoll python git wv poppler-utils && \
-    #install german language pack for aspell
-    apt-get install -y --force-yes aspell-de && \
+	apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages apt-utils && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages software-properties-common
+
+RUN add-apt-repository ppa:recoll-backports/recoll-1.15-on
+
+RUN apt-get update && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages apt-transport-https && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages python3-pip python3-dev python-cherrypy3 && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages recoll python3 git wv poppler-utils && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages aspell-it && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages aspell-ar && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages aspell-en && \
+    apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages unrar unzip xsltproc unrtf untex libimage-exiftool-perl antiword pstotext tesseract-ocr && \
     apt-get clean
 
+RUN git clone https://@opensourceprojects.eu/git/p/recollwebui/code /home/docker/recoll-webui/
+RUN chmod 777 -R /home/docker/recoll-webui/
 
-
-RUN git clone https://github.com/viktor-c/recoll-webui.git -b viktor /home/docker/recoll-webui/
-
-# Move recoll files
-#bgindex.sh and startrecoll.sh
 COPY scripts/ /usr/local/bin/
 RUN chmod +x /usr/local/bin/startrecoll.sh && chmod +x /usr/local/bin//bgindex.sh
+COPY recoll.conf /home/.recoll/
 
-USER docker
-COPY recoll.conf /home/docker/data/.recoll/
 CMD ["/usr/local/bin/startrecoll.sh"]
