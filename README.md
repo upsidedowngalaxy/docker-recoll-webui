@@ -19,8 +19,8 @@ It will also pull the most updated front end for this container, which is 'hopef
 1. Clone this project to your computer. 
 
    On *Linux* `https://github.com/gorgia/docker-recoll-webui.git`
-2. Edit the file *recoll.conf* for recoll configuration
-   Edit the file *bgindex.sh* in order to set the index update frequency (unfortunately I have been unable to make "live indexing" works under docker)
+2. Edit the file *recoll.conf* for recoll configuration  
+   Edit the file *bgindex.sh* in order to set the index update frequency (unfortunately I have been unable to make "live indexing" works under docker)  
    Edit the *.env* file with the path containing the data to be indexed  
    
    For *huge amount* of info about what options are possible check out *The Manual* [https://www.lesbonscomptes.com/recoll/usermanual/webhelp/docs/RCL.INSTALL.CONFIG.RECOLLCONF.html].
