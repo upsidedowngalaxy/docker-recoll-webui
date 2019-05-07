@@ -12,21 +12,22 @@ Project home : http://www.lesbonscomptes.com/recoll
 
 To check detailed features for <i>Recoll</i> check out : http://www.lesbonscomptes.com/recoll/features.html
 
-This container will pull Debian Jessie, download Recoll source.list, then install all the needed dependencies. It will also pull the front end for this container, which is located at https://github.com/koniu/recoll-webui
+This container will pull Debian Jessie, download Recoll source.list, then install all the needed dependencies. 
+It will also pull the most updated front end for this container, which is 'hopefully' at https://@opensourceprojects.eu/git/p/recollwebui/code
 
 <b>How to install</b>
 1. Clone this project to your computer. 
 
-   On *Linux* `git clone https://github.com/viktor-c/docker-recoll-webui`
-2. Edit the file recoll.conf 
-
+   On *Linux* `https://github.com/gorgia/docker-recoll-webui.git`
+2. Edit the file *recoll.conf* for recoll configuration
+   Edit the file *bgindex.sh* in order to set the index update frequency (unfortunately I have been unable to make "live indexing" works under docker)
+   Edit the *.env* file with the path containing the data to be indexed  
+   
    For *huge amount* of info about what options are possible check out *The Manual* [https://www.lesbonscomptes.com/recoll/usermanual/webhelp/docs/RCL.INSTALL.CONFIG.RECOLLCONF.html].
-2. Make this file executable
-   On *Linux* `chmod u+x container.sh`
-3. In terminal run `./container.sh build` to build the image, then start the created container. 
-4. The start you container with `./container.sh start /path/to/your/local/collection/of/data` or `./container.sh start`, in the latter form it will pick up the default path from inside *container.sh* file
-   Both commands will return the *container id* and the *IP-Address* where you can find recoll-webui
-4. Access the docker-recoll-webui frontend by clicking the link or copying the IP-Adress
+2. Reach the folder of the project with the terminal and build the image with *docker-compose* [https://docs.docker.com/compose/]:
+   `docker-compose build`
+4. Run `docker-compose start`
+5. Access the docker-recoll-webui at [http://localhost:8080] frontend by clicking the link or copying the IP-Adress
    
 
 **Notes**

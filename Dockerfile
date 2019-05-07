@@ -33,7 +33,7 @@ RUN git clone https://@opensourceprojects.eu/git/p/recollwebui/code /home/docker
 RUN chmod 777 -R /home/docker/recoll-webui/
 
 COPY scripts/ /usr/local/bin/
-RUN chmod +x /usr/local/bin/startrecoll.sh && chmod +x /usr/local/bin//bgindex.sh
+RUN chmod +x /usr/local/bin/startrecoll.sh && chmod +x /usr/local/bin/bgindex.sh
 COPY recoll.conf /home/.recoll/
 
 CMD ["/usr/local/bin/startrecoll.sh"]

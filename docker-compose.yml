@@ -3,12 +3,12 @@ services:
   recoll:
     build: .
     ports:
-      - "8080:8080"
+      - "${HTTP_PORT}:8080"
     volumes:
-      - "data-path:/data/:ro"
+      - "${PATH_TO_FOLDER_TO_BE_INDEXED}:/data/:ro"
       - "recolldata:/home/.recoll/"
 volumes:
   recolldata:
   data-path:
-     name: ${PATH_TO_FOLDER_TO_BE_INDEXED}
+     name: data
      external: false
