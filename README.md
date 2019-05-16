@@ -13,7 +13,7 @@ Project home : http://www.lesbonscomptes.com/recoll
 To check detailed features for <i>Recoll</i> check out : http://www.lesbonscomptes.com/recoll/features.html
 
 This container will pull Debian Jessie, download Recoll source.list, then install all the needed dependencies. 
-It will also pull the most updated front end for this container, which is 'hopefully' at https://@opensourceprojects.eu/git/p/recollwebui/code
+It will also pull the most updated front end for this container, which is 'hopefully' at opensourceprojects.eu [https://@opensourceprojects.eu/git/p/recollwebui/code]
 
 <b>How to install</b>
 1. Clone this project to your computer. 
